@@ -11,7 +11,7 @@ template <class T>
 class NodeC {
 	T e;
 	NodeC* next;
-	NodeC* prev
+	NodeC* prev;
 public:
 	//constuctor that create an empty node
 	NodeC() : e{ T{} }, next{ nullptr }, prev{ nullptr } {}
@@ -19,7 +19,7 @@ public:
 	NodeC(T e) :e{ e }, next{ nullptr }, prev{ nullptr } {}
 
 	//copy constructor
-	NodeC(Node& n) {
+	NodeC(NodeC& n) {
 		e = n.e;
 		next = n.next;
 		prev = n.prev;
@@ -64,7 +64,7 @@ public:
 	}
 
 	//returning a pointer to the previous node
-	NodeC<T>* getNext() {
+	NodeC<T>* getPrev() {
 		return prev;
 	}
 
@@ -197,7 +197,7 @@ T DLinkedList<T>::operator[](int pos) {
 		if (pos <= nr / 2) {
 			while (i != pos) {
 				c = c->getNext();
-				i++
+				i++;
 			}
 		}
 		else {
@@ -309,7 +309,7 @@ void DLinkedList<T>::addPos(T el, int pos) {
 	}
 	NodeC<T>* ant = c->getPrev();
 	n->setPrev(ant);
-	ant->setNext(prev);
+	ant->setNext(n);
 	n->setNext(c);
 	c->setPrev(n);
 
@@ -361,7 +361,7 @@ T DLinkedList<T>::remove(int poz) {
 	int i = 0;
 	NodeC<T>* c = first;
 	if (poz <= nr / 2) {
-		while (i != pos) {
+		while (i != poz) {
 			c = c->getNext();
 			i++;
 		}
@@ -369,7 +369,7 @@ T DLinkedList<T>::remove(int poz) {
 	else {
 		c = last;
 		i = nr - 1;
-		while (i != pos) {
+		while (i != poz) {
 			c = c->getPrev();
 			i--;
 		}
@@ -461,14 +461,14 @@ DLinkedList<T>& DLinkedList<T>::operator=(DLinkedList&& ot) {
 //returning an iterator at the first element of the list
 template<class T>
 IteratorDLL<T> DLinkedList<T>::begin() {
-	return IteratorLL<T>(*this, first);
+	return IteratorDLL<T>(*this, first);
 }
 
 
 //returning an iterator after the last element of the list
 template<class T>
 IteratorDLL<T> DLinkedList<T>::end() {
-	return IteratorLL<T>(*this, nullptr);
+	return IteratorDLL<T>(*this, nullptr);
 }
 
 /* The desctructor is recursively
