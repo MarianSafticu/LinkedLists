@@ -178,6 +178,7 @@ T LinkedList<T>::operator[](int pos) {
 		int i = 0;
 		while (i != pos) {
 			c = c->getNext();
+			i++;
 		}
 		return c.elem();
 	}
